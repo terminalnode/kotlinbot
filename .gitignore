@@ -1,0 +1,15 @@
+# Bot specific stuff
+# Settings file with bot token and owner id
+config
+predefinedInputs
+botsettings.json
+
+# Gradle/Intellij stuff
+.idea/*.xml
+.idea/libraries
+.idea/$PRODUCT_WORKSPACE_FILE$
+build
+.gradle
+!gradle-wrapper.jar
+.gradletasknamecache
+gradle/wrapper/gradle-wrapper.properties
