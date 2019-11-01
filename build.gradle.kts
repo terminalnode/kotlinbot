@@ -15,6 +15,7 @@ repositories {
 dependencies {
     compile("com.jagrosh:jda-utilities:3.0.2")
     compile("net.dv8tion:JDA:4.0.0_46")
+    compile("org.jetbrains.exposed:exposed:0.17.6")
     runtime("ch.qos.logback:logback-classic:1.2.3")
     runtime("mysql:mysql-connector-java:5.1.37")
     implementation("com.google.code.gson:gson:2.8.5")
@@ -22,5 +23,5 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
