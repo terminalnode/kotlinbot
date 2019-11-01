@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SettingsDB extends SettingsAbstract {
+public class SettingsDBOld extends SettingsAbstractOld {
   private final DBHandler dbHandler;
   private boolean dbFunctional;
 
@@ -14,7 +14,7 @@ public class SettingsDB extends SettingsAbstract {
    * The main constructor for the class.
    * @param dbHandler A DBHandler object that can read and write to a database.
    */
-  public SettingsDB(DBHandler dbHandler) {
+  public SettingsDBOld(DBHandler dbHandler) {
     this.dbHandler = dbHandler;
 
     // Create settings table if absent in database.

@@ -18,13 +18,13 @@ import java.util.Map;
  * are written to disk every time a setting is change. For many settings this can result in a lot
  * of disk I/O.
  */
-public class SettingsFile extends SettingsAbstract {
+public class SettingsFileOld extends SettingsAbstractOld {
   private final String settingsFile;
 
   /**
    * The main constructor for the settings class.
    */
-  public SettingsFile() {
+  public SettingsFileOld() {
     settingsFile = "botsettings.json";
     customSettings = null;
     try {

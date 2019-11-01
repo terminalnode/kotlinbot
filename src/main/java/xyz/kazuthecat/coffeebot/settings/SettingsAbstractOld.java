@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * called writeJSON which is dictates how settings are saved, while loading of settings from this medium is handled
  * by the subclasses constructor methods.
  */
-public abstract class SettingsAbstract {
+public abstract class SettingsAbstractOld {
   final Gson gson = new Gson();
   private final Map<String, String> defaultSettings = new HashMap<>();
   private Map<String, Boolean> userChangeable = new HashMap<>();
