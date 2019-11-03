@@ -10,11 +10,11 @@ import xyz.kazuthecat.coffeebot.ExposedDBHandler
 class CoffeeLog (dbHandler: ExposedDBHandler) : Command() {
   // coffeelog is used with Exposed to create/handle/query the database
   // when creating the table the name of the class will be used, which is why it's all lower-case
+  private val initializedUsers = mutableMapOf<Long, Int>()
   object coffeelog : Table() {
     val id = long("id").primaryKey()
     val cups = integer("cups")
   }
-  private val initializedUsers = mutableMapOf<Long, Int>()
 
   init {
     name = "coffeelog"
@@ -34,30 +34,27 @@ class CoffeeLog (dbHandler: ExposedDBHandler) : Command() {
 
     val args = event.args.split(" ")
     val author = event.author
-
     val reply : String
     reply = when (args[0]) {
       "add" -> addCups(args, author)
       "check" -> checkCups(author)
       else -> "I'm not sure what you want me to do ${author.asMention}"
     }
-
     event.reply(reply)
   }
 
   private fun addCups(args : List<String>, user : User) : String {
     val uid = user.idLong
-    val oldCups = initializedUsers[user.idLong] // Current entry for user, may be null.
+    val oldCups = initializedUsers[user.idLong]
 
-    var maxCups = false                         // Did the user try to drink more than 10 cups at once?
-    val newCups = try {
-      val requested = args[1].toInt()           // Try block to check that the argument after "add" is indeed an integer
-      if (requested > 10) {
-        maxCups = true; 10                      // User did try to specify a number higher than ten
-      } else {
-        requested
-      }
-    } catch (_ : Exception) { 1 }               // No value specified, defaulting to 1
+    var maxCups = false // Did user try to increase by more than 10?
+    var newCups = 1     // How many cups does the user want to add?
+    if (args.size > 1 && args[1].matches(Regex("\\d+"))) {
+      try {
+        newCups = args[1].toInt()
+        if (newCups > 10) { newCups = 10; maxCups = true }
+      } catch (_ : Exception) {}
+    }
 
     transaction {
       if (oldCups == null) {
@@ -72,6 +69,7 @@ class CoffeeLog (dbHandler: ExposedDBHandler) : Command() {
         }
       }
     }
+
     return if (!maxCups) {
       "Added $newCups to your cup count, ${user.asMention}. You're now at ${initializedUsers[uid]}"
     } else {
