@@ -3,6 +3,7 @@
 config
 predefinedInputs
 botsettings.json
+.attach_pid*
 
 # Gradle/Intellij stuff
 .idea/*.xml
