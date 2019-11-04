@@ -43,7 +43,7 @@ fun main() {
 
   val dbHandler = DBHandler(dbAddr, dbUser, dbPass)
   val exposedDbHandler = ExposedDBHandler(dbAddr, dbUser, dbPass)
-  val settings = SettingsDB(dbHandler)
+  val settings = SettingsDB(exposedDbHandler)
   val eventWaiter = EventWaiter()
 
   client.addCommands(
